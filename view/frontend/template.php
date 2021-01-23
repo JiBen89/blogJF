@@ -7,6 +7,10 @@
     </head>
         
     <body>
+    <header>
+        <a href="index.php?action=inscriptionView">Inscription</a>
+        <a href="index.php?action=connectionView">Connexion</a>        
+    </header>
         <?= $content ?>
     </body>
 </html>

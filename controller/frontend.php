@@ -3,6 +3,7 @@
 // Chargement des classes
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/UserManager.php');
 
 function listPosts()
 {
@@ -35,5 +36,30 @@ function addComment($postId, $author, $comment)
     else {
         header('Location: index.php?action=post&id=' . $postId);
     }
+}
 
+function addUser($pseudo, $pass, $mail)
+{
+    $userManager = new UserManager();
+
+    $affectedLines = $userManager->addUser($pseudo, $pass, $mail);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible d\'ajouter l\'utilisateur !');
+    }
+    else {
+        header('Location: index.php' );
+    }
+
+}
+function inscriptionView(){
+    require("view/frontend/inscriptionView.php");
+}
+
+function connection($pseudo, $pass){
+
+}
+
+function connectionView(){
+    require("view/frontend/connectionView.php");
 }

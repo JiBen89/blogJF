@@ -27,6 +27,25 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
+        elseif ($_GET['action'] == 'inscriptionViewPost'){
+            if (!empty($_POST['pseudo']) && !empty($_POST['pass']) && !empty($_POST['mail']))
+            {
+                addUser($_POST['pseudo'], $_POST['pass'], $_POST['mail']);     // traite les données envoyés par le formulaire d'insrciption 
+            }
+            
+            else {
+                echo 'Il faut remplir les champs corespondant a l\'inscription <a href="index.php"> retour ici </a> ' ;
+            }
+        }
+        elseif ($_GET['action'] == 'connection') {
+            connection($_POST['pseudo'], $_POST['password']);
+        }
+        elseif ($_GET['action'] == 'connectionView') {           //Nous envoie vers la page connection view
+            connectionView();
+        }
+        elseif ($_GET['action'] == 'inscriptionView') {         //Nous envoie vers la page inscription view 
+            inscriptionView();
+        }
     }
     else {
         listPosts();
