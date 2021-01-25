@@ -1,5 +1,5 @@
-
 <h2>Inscription</h2>
+
 <form action="index.php?action=inscriptionViewPost" method="post">
 <div>
     <label for="pseudo">Pseudo</label>
@@ -15,7 +15,7 @@
 </div>
 <div>
     <label for="mail">Email</label>
-    <input id="mail" name="mail" type="email"/>
+    <input id="mail" name="mail" />  
 </div>
 <div>
     <input type="submit" />

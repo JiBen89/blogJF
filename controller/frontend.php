@@ -38,26 +38,42 @@ function addComment($postId, $author, $comment)
     }
 }
 
-function addUser($pseudo, $pass, $mail)
+function pseudoAvailiable($pseudo)
 {
     $userManager = new UserManager();
 
-    $affectedLines = $userManager->addUser($pseudo, $pass, $mail);
+    $userExist = $userManager->checkUser($pseudo);
 
-    if ($affectedLines === false) {
-        throw new Exception('Impossible d\'ajouter l\'utilisateur !');
+    return $userExist;
+}
+
+function addUser($pseudo, $pass, $mail)
+{
+    $hashed = password_hash($pass, PASSWORD_DEFAULT);
+    $pseudoExist = pseudoAvailiable($pseudo);
+    $error = true;
+    $userManager = new UserManager();
+    if ($pseudoExist === false){
+
+        $affectedLines = $userManager->addUser($pseudo, $hashed, $mail);
+    
+        if ($affectedLines === false) {
+            $error = true;
+        }
     }
-    else {
+    else{
+        throw new Exception('le pseudo est déjà utilisé <a href="index.php?action=inscriptionView"> retour ici </a>!');
+    }
+    if (!$error){
         header('Location: index.php' );
     }
-
 }
 function inscriptionView(){
     require("view/frontend/inscriptionView.php");
 }
 
 function connection($pseudo, $pass){
-
+    $hashed = password_hash($pass, PASSWORD_DEFAULT);
 }
 
 function connectionView(){
