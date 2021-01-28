@@ -10,7 +10,12 @@ class PostManager extends Manager
 
         return $req;
     }
-
+/**
+ * get the post from the ID
+ *
+ * @param number $postId
+ * @return void
+ */
     public function getPost($postId)
     {
         $db = $this->dbConnect();

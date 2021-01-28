@@ -68,14 +68,31 @@ function addUser($pseudo, $pass, $mail)
         header('Location: index.php' );
     }
 }
+function connectUser($pseudo, $pass)
+{
+    //$pass = password_hash($pass, PASSWORD_DEFAULT);
+    $connectUser = new UserManager();
+    $userData = $connectUser->getUser($pseudo);
+
+    if (!empty($userData)){
+
+        $isPasswordCorrect = password_verify($pass, $userData['pass']);
+
+        if ($isPasswordCorrect){
+            session_start();
+            $_SESSION['id'] = $userData['id'];
+            $_SESSION['pseudo'] = $userData['pseudo'];
+            echo 'Vous êtes connecté !<a href="index.php> retour ici </a>!' ;
+        }
+    }
+        else {
+            echo 'Mauvais mot de passe !';
+        }
+}
 function inscriptionView(){
     require("view/frontend/inscriptionView.php");
 }
 
-function connection($pseudo, $pass){
-    $hashed = password_hash($pass, PASSWORD_DEFAULT);
-}
-
 function connectionView(){
-    require("view/frontend/connectionView.php");
+    require('view/frontend/connectionView.php');
 }

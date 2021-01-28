@@ -15,7 +15,7 @@
 </div>
 <div>
     <label for="mail">Email</label>
-    <input id="mail" name="mail" />  
+    <input id="mail" type="email" name="mail" />  
 </div>
 <div>
     <input type="submit" />

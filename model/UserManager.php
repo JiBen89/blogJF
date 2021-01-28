@@ -19,22 +19,6 @@ class UserManager extends Manager
         $affectedLines = $req->execute(array($pseudo, $pass, $mail));
         
         return $req;
-        
-    }
-    /**
-     * connect the user the sessions start
-     *
-     * @param [type] $pseudo
-     * @param [type] $pass
-     * @return req
-     */
-    public function connectUser($pseudo, $pass)
-    {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT pseudo, pass FROM users WHERE pseudo = ?, pass =?');
-        $req->execute(array($pseudo, $pass));
-
-        return $req;
     }
 
     /**
@@ -51,5 +35,22 @@ class UserManager extends Manager
         $result = ($req->rowCount() > 0 );
 
         return $result;
+    }
+
+    /**
+     * connect the user the sessions start
+     *
+     * @param [type] $pseudo
+     * @param [type] $pass
+     * @return result
+     */
+    public function getUser($pseudo)
+    {
+        $db = $this->dbConnect();                                                   // connect to the database
+        $req = $db->prepare('SELECT id, pseudo, pass FROM users WHERE pseudo = ?'); // we get the data for the user conection with the pseudo
+        $req->execute(array($pseudo));                                              // we the collected data id, pseudo & pass in $req
+            $result = $req->fetch();                                        
+
+            return $result;
     }
 }

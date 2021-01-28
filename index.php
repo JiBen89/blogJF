@@ -27,11 +27,14 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
-        elseif ($_GET['action'] == 'inscriptionViewPost'){                 //reçoit les données de inscriptionViewPrePost
+        elseif ($_GET['action'] == 'inscriptionView') {         //go to inscription view 
+            inscriptionView();
+        }
+        elseif ($_GET['action'] == 'inscriptionViewPost'){
             if (!empty($_POST['pseudo']) && !empty($_POST['pass']) && !empty($_POST['mail']))
             {
                 if($_POST['pass'] === $_POST['passCheck']){
-                addUser($_POST['pseudo'], $_POST['pass'], $_POST['mail']);     // traite les données envoyés par le formulaire d'insrciption 
+                addUser($_POST['pseudo'], $_POST['pass'], $_POST['mail']);
                 listPosts();
                 }
                 else{
@@ -42,14 +45,17 @@ try {
                 echo 'Il faut remplir les <strong>TOUS</strong>  champs corespondant a l\'inscription <a href="index.php?action=inscriptionView"> retour ici </a> ' ;
             }
         }
-        elseif ($_GET['action'] == 'connection') {
-            connection($_POST['pseudo'], $_POST['password']);
-        }
-        elseif ($_GET['action'] == 'connectionView') {           //Nous envoie vers la page connection view
+        elseif ($_GET['action'] == 'connectionView') {    //clic on connection button
             connectionView();
         }
-        elseif ($_GET['action'] == 'inscriptionView') {         //Nous envoie vers la page inscription view 
-            inscriptionView();
+        elseif ($_GET['action'] == 'connectionViewPost') {           //come from connectionView with data in $_POST
+            if(!empty($_POST['pseudo']) && !empty($_POST['pass']))
+            {
+               connectUser($_POST['pseudo'], $_POST['pass']);
+            }
+            else {
+                echo 'il faut remplir les champs d\'identification<a href="index.php?action=connectionView"> retour ici </a> !';
+            }
         }
     }
     else {
