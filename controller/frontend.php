@@ -27,8 +27,9 @@ function post()
 function addComment($postId, $author, $comment)
 {
     $commentManager = new CommentManager();
+    $author = $_SESSION['pseudo'];
 
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
+    $affectedLines = $commentManager->postComment($postId, $author , $comment);
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
@@ -70,19 +71,16 @@ function addUser($pseudo, $pass, $mail)
 }
 function connectUser($pseudo, $pass)
 {
-    //$pass = password_hash($pass, PASSWORD_DEFAULT);
     $connectUser = new UserManager();
     $userData = $connectUser->getUser($pseudo);
-
     if (!empty($userData)){
-
         $isPasswordCorrect = password_verify($pass, $userData['pass']);
-
         if ($isPasswordCorrect){
             session_start();
             $_SESSION['id'] = $userData['id'];
             $_SESSION['pseudo'] = $userData['pseudo'];
-            echo 'Vous êtes connecté !<a href="index.php> retour ici </a>!' ;
+            $_SESSION['adm'] = $userData['adm'];
+            header('Location: index.php' );
         }
     }
         else {
@@ -96,3 +94,20 @@ function inscriptionView(){
 function connectionView(){
     require('view/frontend/connectionView.php');
 }
+function writePost(){
+    require('view/frontend/writePostView.php');
+}
+function sendPost($newTitle, $newPost)
+{
+    $postManager = new PostManager();
+
+    $affectedLines = $postManager->sendPost($newTitle, $newPost);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible d\'ajouter le post');
+    }
+    else {
+        header('Location: index.php?');
+    }
+}
+

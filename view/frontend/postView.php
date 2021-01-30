@@ -32,14 +32,21 @@ while ($comment = $comments->fetch())
 <?php require('template.php'); ?>
 <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
     <div>
-        <label for="author">Auteur</label><br />
-        <input type="text" id="author" name="author" />
+        <p><?php echo ('commenté en tant que '. $_SESSION['pseudo']) ?></p>
     </div>
     <div>
-        <label for="comment">Commentaire</label><br />
-        <textarea id="comment" name="comment"></textarea>
+        <?php 
+            if (!empty($_SESSION['pseudo']))
+            {
+                echo '<label for="comment">Commentaire</label><br /><textarea id="comment" name="comment"></textarea>';            
+            }
+        ?>
     </div>
-    <div>
-        <input type="submit" />
+    <div> 
+        <?php     
+            if (!empty($_SESSION['pseudo'])){
+                echo '<input type="submit" />';
+            }
+        ?>
     </div>
 </form>

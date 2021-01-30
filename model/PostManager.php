@@ -3,6 +3,11 @@ require_once("model/Manager.php");
 
 class PostManager extends Manager
 {
+    /**
+     * get all the posts
+     *
+     * @return $req
+     */
     public function getPosts()
     {
         $db = $this->dbConnect();
@@ -10,6 +15,17 @@ class PostManager extends Manager
 
         return $req;
     }
+
+    public function sendPost($newTitle, $newPost)
+    {
+        $db = $this->dbConnect();
+        $theNewPost = $db->prepare('INSERT INTO posts( title, content, creation_date) VALUES(?, ?, NOW())');
+        $theNewPost->execute(array($newTitle, $newPost));
+        var_dump($newTitle);
+        
+        return $theNewPost;
+    }
+
 /**
  * get the post from the ID
  *

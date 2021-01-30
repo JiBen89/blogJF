@@ -1,6 +1,9 @@
 <?php
 require('controller/frontend.php');
-
+if(!empty($_SESSION['pseudo']))
+{
+    echo 'Bonjour ' . $_SESSION['pseudo'].'<a href="index.php?action=disconect" > deconexion </a>'; 
+}
 try {
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listPosts') {
@@ -15,9 +18,10 @@ try {
             }
         }
         elseif ($_GET['action'] == 'addComment') {
+            session_start();
             if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                    addComment($_GET['id'], $_POST['author'], $_POST['comment']);
+                if (!empty($_SESSION['pseudo']) && !empty($_POST['comment'])) {
+                    addComment($_GET['id'], $_SESSION['pseudo'], $_POST['comment']);
                 }
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
@@ -56,6 +60,18 @@ try {
             else {
                 echo 'il faut remplir les champs d\'identification<a href="index.php?action=connectionView"> retour ici </a> !';
             }
+        }
+        elseif ($_GET['action'] == 'disconect'){
+            session_start();
+            session_destroy();
+            listPosts();
+        }
+        elseif ($_GET['action'] == 'writePostView'){
+            writePost();
+        }
+        elseif($_GET['action'] == 'writeNewPost'){
+            sendPost($_POST['newTitle'], $_POST['newPost']);
+            listPosts();
         }
     }
     else {
