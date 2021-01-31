@@ -69,6 +69,7 @@ function addUser($pseudo, $pass, $mail)
         header('Location: index.php' );
     }
 }
+
 function connectUser($pseudo, $pass)
 {
     $connectUser = new UserManager();
@@ -87,6 +88,7 @@ function connectUser($pseudo, $pass)
             echo 'Mauvais mot de passe !';
         }
 }
+
 function inscriptionView(){
     require("view/frontend/inscriptionView.php");
 }
@@ -94,9 +96,11 @@ function inscriptionView(){
 function connectionView(){
     require('view/frontend/connectionView.php');
 }
+
 function writePost(){
     require('view/frontend/writePostView.php');
 }
+
 function sendPost($newTitle, $newPost)
 {
     $postManager = new PostManager();
@@ -109,5 +113,13 @@ function sendPost($newTitle, $newPost)
     else {
         header('Location: index.php?');
     }
+}
+
+function updatePost()
+{
+    $postManager = new PostManager(); 
+    $posts = $postManager->getPostsList(); 
+
+    require('view/frontend/updatePostView.php');
 }
 

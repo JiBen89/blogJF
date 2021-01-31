@@ -72,6 +72,8 @@ try {
         elseif($_GET['action'] == 'writeNewPost'){
             sendPost($_POST['newTitle'], $_POST['newPost']);
             listPosts();
+        }elseif($_GET['action'] == 'updatePost'){
+            updatePost();                                       //require('view/frontend/updatePostView.php');
         }
     }
     else {

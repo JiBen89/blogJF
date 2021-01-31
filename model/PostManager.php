@@ -16,6 +16,14 @@ class PostManager extends Manager
         return $req;
     }
 
+    public function getPostsList()
+    {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, title, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date');
+
+        return $req;
+    }
+
     public function sendPost($newTitle, $newPost)
     {
         $db = $this->dbConnect();
@@ -26,12 +34,12 @@ class PostManager extends Manager
         return $theNewPost;
     }
 
-/**
- * get the post from the ID
- *
- * @param number $postId
- * @return void
- */
+    /**
+     * get the post from the ID
+     *
+     * @param number $postId
+     * @return void
+     */
     public function getPost($postId)
     {
         $db = $this->dbConnect();
@@ -42,4 +50,5 @@ class PostManager extends Manager
 
         return $post;
     }
+
 }

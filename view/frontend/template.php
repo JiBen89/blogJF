@@ -29,6 +29,5 @@
             }
             ?>
         </header>
-        <?= $content ?>
     </body>
 </html>
