@@ -9,23 +9,19 @@
     <body>
         <header>
             <?php 
-            session_start();
             if(empty($_SESSION['pseudo']))
             {
                 echo '<a href="index.php?action=inscriptionView">Inscription </a>'.'<a href="index.php?action=connectionView">Connexion </a>';
             }
             else{
                 echo 'Bonjour ' . $_SESSION['pseudo'] .' '. ' <a href="index.php?action=disconect"> déconexion </a> </br>';
-            }
-            if($_SESSION['adm'] == 1){
-                echo 'vous êtes connecté entant qu\'administrateur </br>
-                pour écrire les billets : <a id="writePost" href="index.php?action=writePostView"> Ecrire </a> </br>
-                pour modifier les billets : <a href="index.php?action=updatePost"> Modifier </a> </br>
-                pour modérer les commentaires : <a href="index.php?action=updateComment"> Modérer </a> </br>
-                ';
-            }
-            else{
-                echo "coucou";
+                if($_SESSION['adm'] == 1){
+                    echo 'vous êtes connecté entant qu\'administrateur </br>
+                    Pour écrire les billets : <a id="writePost" href="index.php?action=writePostView"> Ecrire </a> </br>
+                    Pour modifier les billets : <a href="index.php?action=updatePost"> Modifier </a> </br>
+                    Liste des commentaires signlés : <a href="index.php?action=updateComment"> Modérer </a> </br>
+                    ';
+                }
             }
             ?>
         </header>

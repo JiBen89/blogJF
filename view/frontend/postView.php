@@ -1,6 +1,6 @@
 <?php $title = htmlspecialchars($post['title']); ?>
 
-<?php ob_start(); ?>
+<?php require('template.php'); ?>
 <h1>Blog de J.Forteroche</h1>
 <p><a href="index.php">Retour à la liste des billets</a></p>
 
@@ -21,22 +21,23 @@
 while ($comment = $comments->fetch())
 {
 ?>
-    <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?>
+    <p><strong><?= htmlspecialchars($comment['idAuthor']) ?></strong> le <?= $comment['comment_date_fr'] ?>
     <a href="index.php?action=warnComment&amp;id=<?= $comment['id'] ?>">(signaler)</a></p>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 <?php
 }
 ?>
-<?php $content = ob_get_clean(); ?>
-
-<?php require('template.php'); ?>
 <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
     <div>
-        <p><?php echo ('commenté en tant que '. $_SESSION['pseudo']) ?></p>
+        <p><?php
+        if (!empty($_SESSION['idUser'])){
+            echo ('commenté en tant que '. $_SESSION['idUser']);
+        }
+        ?></p>
     </div>
     <div>
         <?php 
-            if (!empty($_SESSION['pseudo']))
+            if (!empty($_SESSION['idUser']))
             {
                 echo '<label for="comment">Commentaire</label><br /><textarea id="comment" name="comment"></textarea>';            
             }
@@ -44,7 +45,7 @@ while ($comment = $comments->fetch())
     </div>
     <div> 
         <?php     
-            if (!empty($_SESSION['pseudo'])){
+            if (!empty($_SESSION['idUser'])){
                 echo '<input type="submit" />';
             }
         ?>

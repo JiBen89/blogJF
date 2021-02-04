@@ -9,7 +9,6 @@ function listPosts()
 {
     $postManager = new PostManager(); // Création d'un objet
     $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
-
     require('view/frontend/listPostsView.php');
 }
 
@@ -24,12 +23,12 @@ function post()
     require('view/frontend/postView.php');
 }
 
-function addComment($postId, $author, $comment)
+function addComment($postId, $idUser, $comment)
 {
     $commentManager = new CommentManager();
     $author = $_SESSION['pseudo'];
 
-    $affectedLines = $commentManager->postComment($postId, $author , $comment);
+    $affectedLines = $commentManager->postComment($postId, $idUser , $comment);
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
@@ -37,6 +36,18 @@ function addComment($postId, $author, $comment)
     else {
         header('Location: index.php?action=post&id=' . $postId);
     }
+}
+function warnComment($CommentId)
+{
+    $commentManager = new CommentManager();
+    $affectedLines = $commentManager->signalComment($CommentId);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible de signaler le commentaire!');
+    }
+    else {
+        header('Location: index.php');
+        }
 }
 
 function pseudoAvailiable($pseudo)
@@ -77,8 +88,7 @@ function connectUser($pseudo, $pass)
     if (!empty($userData)){
         $isPasswordCorrect = password_verify($pass, $userData['pass']);
         if ($isPasswordCorrect){
-            session_start();
-            $_SESSION['id'] = $userData['id'];
+            $_SESSION['idUser'] = $userData['id'];
             $_SESSION['pseudo'] = $userData['pseudo'];
             $_SESSION['adm'] = $userData['adm'];
             header('Location: index.php' );
@@ -123,3 +133,22 @@ function updatePost()
     require('view/frontend/updatePostView.php');
 }
 
+function postContent()
+{
+    $postManager = new PostManager();
+    $content = $postManager->getPostContent($_GET['id']);
+    require('view/frontend/postContent.php');
+}
+
+function updateContent($newContent, $newTitle, $postId)
+{
+    $postManager = new PostManager(); 
+    $affectedLines = $postManager->modifyContent($postId, $newContent, $newTitle); 
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible de modifier le post');
+    }
+    else {
+        header('Location: index.php?');
+    }
+}

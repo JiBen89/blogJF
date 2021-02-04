@@ -1,5 +1,6 @@
 <?php
 require('controller/frontend.php');
+session_start();
 if(!empty($_SESSION['pseudo']))
 {
     echo 'Bonjour ' . $_SESSION['pseudo'].'<a href="index.php?action=disconect" > deconexion </a>'; 
@@ -18,13 +19,12 @@ try {
             }
         }
         elseif ($_GET['action'] == 'addComment') {
-            session_start();
             if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_SESSION['pseudo']) && !empty($_POST['comment'])) {
-                    addComment($_GET['id'], $_SESSION['pseudo'], $_POST['comment']);
+                if (!empty($_SESSION['idUser']) && !empty($_POST['comment'])) {
+                    addComment($_GET['id'], $_SESSION['idUser'], $_POST['comment']);
                 }
                 else {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
+                    throw new Exception('Tous les champs ne sont pas remplis triple buse!');
                 }
             }
             else {
@@ -55,14 +55,13 @@ try {
         elseif ($_GET['action'] == 'connectionViewPost') {           //come from connectionView with data in $_POST
             if(!empty($_POST['pseudo']) && !empty($_POST['pass']))
             {
-               connectUser($_POST['pseudo'], $_POST['pass']);
+            connectUser($_POST['pseudo'], $_POST['pass']);
             }
             else {
                 echo 'il faut remplir les champs d\'identification<a href="index.php?action=connectionView"> retour ici </a> !';
             }
         }
         elseif ($_GET['action'] == 'disconect'){
-            session_start();
             session_destroy();
             listPosts();
         }
@@ -74,6 +73,16 @@ try {
             listPosts();
         }elseif($_GET['action'] == 'updatePost'){
             updatePost();                                       //require('view/frontend/updatePostView.php');
+        }
+        elseif($_GET['action'] == 'getContent'){
+            postContent($_GET['id']);                                  // require('view/frontend/postContent');
+        }
+        elseif($_GET['action'] == 'newContent'){
+            updateContent($_POST['newContent'], $_POST['newTitle'], $_POST['postId']);
+        }
+        elseif($_GET['action'] == 'warnComment'){
+            warnComment($_GET['id']);
+            listPosts();
         }
     }
     else {

@@ -16,6 +16,8 @@ class PostManager extends Manager
         return $req;
     }
 
+    
+
     public function getPostsList()
     {
         $db = $this->dbConnect();
@@ -50,5 +52,31 @@ class PostManager extends Manager
 
         return $post;
     }
+        /**
+     * get the post from the ID
+     *
+     * @param number $postId
+     * @return void
+     */
+    public function getPostContent($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
+        $req->execute(array($postId));
+        
+        $content = $req->fetch();
 
+        return $content;
+    }
+
+    public function modifyContent($postId, $newContent, $newTitle)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET content = :newContent , title = :newTitle WHERE id = :postId');
+        $req->execute(array(
+            'postId' => $postId,
+            'newContent' => $newContent,
+            'newTitle' => $newTitle,
+        ));
+    }
 }
