@@ -19,7 +19,7 @@
                     echo 'vous êtes connecté entant qu\'administrateur </br>
                     Pour écrire les billets : <a id="writePost" href="index.php?action=writePostView"> Ecrire </a> </br>
                     Pour modifier les billets : <a href="index.php?action=updatePost"> Modifier </a> </br>
-                    Liste des commentaires signlés : <a href="index.php?action=updateComment"> Modérer </a> </br>
+                    Liste des commentaires signlés : <a href="index.php?action=updateCommentView"> Modérer </a> </br>
                     ';
                 }
             }

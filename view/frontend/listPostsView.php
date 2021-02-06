@@ -1,3 +1,4 @@
+<?php require('template.php'); ?>
 <?php $title = 'Mon blog'; ?>
 
 
@@ -27,4 +28,3 @@ $posts->closeCursor();
 ?>
 
 
-<?php require('template.php'); ?>

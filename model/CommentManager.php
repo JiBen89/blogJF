@@ -20,11 +20,27 @@ class CommentManager extends Manager
 
         return $affectedLines;
     }
+
     public function signalComment($CommentId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('UPDATE comment SET warned= 1, WHERE id = ? ');
-        $affectedLines = $comments->execute(array($CommentId));
+        $comments = $db->prepare('UPDATE comments SET warned = 1 WHERE id = :commentId ');
+
+        $affectedLines = $comments->execute(array(
+            'commentId' => $CommentId,
+            ));
         return $affectedLines;
+    }
+
+    public function getWarnedCommentsList()
+    {
+
+        $db = $this->dbConnect();
+        $comments = $db->query('SELECT id, comment FROM comments WHERE warned = 1 ORDER BY comment_date DESC');
+
+        $commentList  = $comments->fetch();
+        var_dump($commentList) ;
+
+        return $commentList;
     }
 }

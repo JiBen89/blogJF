@@ -7,8 +7,8 @@ require_once('model/UserManager.php');
 
 function listPosts()
 {
-    $postManager = new PostManager(); // Création d'un objet
-    $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
+    $postManager = new PostManager();
+    $posts = $postManager->getPosts();
     require('view/frontend/listPostsView.php');
 }
 
@@ -37,17 +37,23 @@ function addComment($postId, $idUser, $comment)
         header('Location: index.php?action=post&id=' . $postId);
     }
 }
+
 function warnComment($CommentId)
 {
     $commentManager = new CommentManager();
     $affectedLines = $commentManager->signalComment($CommentId);
 
     if ($affectedLines === false) {
-        throw new Exception('Impossible de signaler le commentaire!');
+        throw new Exception('Impossible de signaler le commentaire '. $CommentId  );
     }
-    else {
-        header('Location: index.php');
-        }
+}
+
+function getWarnedComments()
+{
+    $commentManager = new CommentManager();
+    $commentList = $commentManager->getWarnedCommentsList();
+
+    require ('view/frontend/listCommentWarnedView.php');
 }
 
 function pseudoAvailiable($pseudo)
@@ -152,3 +158,4 @@ function updateContent($newContent, $newTitle, $postId)
         header('Location: index.php?');
     }
 }
+

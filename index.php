@@ -1,10 +1,7 @@
 <?php
+
 require('controller/frontend.php');
-session_start();
-if(!empty($_SESSION['pseudo']))
-{
-    echo 'Bonjour ' . $_SESSION['pseudo'].'<a href="index.php?action=disconect" > deconexion </a>'; 
-}
+session_start(); 
 try {
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listPosts') {
@@ -81,8 +78,10 @@ try {
             updateContent($_POST['newContent'], $_POST['newTitle'], $_POST['postId']);
         }
         elseif($_GET['action'] == 'warnComment'){
-            warnComment($_GET['id']);
-            listPosts();
+            warnComment($_GET['id']);                                           
+        }
+        elseif($_GET['action'] =='updateCommentView'){
+            getWarnedComments();
         }
     }
     else {

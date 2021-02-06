@@ -1,4 +1,3 @@
-<?php require('template.php'); ?>
 <h2>Quel billet voulez vous modifier ?</h2>
 <p>
     <?php
