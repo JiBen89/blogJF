@@ -37,6 +37,17 @@ function addComment($postId, $idUser, $comment)
         header('Location: index.php?action=post&id=' . $postId);
     }
 }
+function deletComment($idComment)
+{
+    $commentManager = new CommentManager();
+    $affectedLines = $commentManager->erazComment($idComment);
+    if ($affectedLines === false) {
+        throw new Exception('Impossible de supprimer le commentaire !');
+    }
+    else {
+        header('index.php?action=warnedCommentView');
+    }
+}
 
 function warnComment($CommentId)
 {
@@ -47,19 +58,19 @@ function warnComment($CommentId)
         throw new Exception('Impossible de signaler le commentaire '. $CommentId  );
     }
 }
-
-function getWarnedComments()
+function getWarnedCommentView()
 {
     $commentManager = new CommentManager();
-    $commentList = $commentManager->getWarnedCommentsList();
+    $comments = $commentManager->getCommentsWarned();
 
-    require ('view/frontend/listCommentWarnedView.php');
+    require("view/frontend/warnedCommentView.php");
 }
+
 
 function pseudoAvailiable($pseudo)
 {
-    $userManager = new UserManager();
 
+    $userManager = new UserManager();
     $userExist = $userManager->checkUser($pseudo);
 
     return $userExist;

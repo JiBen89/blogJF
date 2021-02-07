@@ -32,15 +32,23 @@ class CommentManager extends Manager
         return $affectedLines;
     }
 
-    public function getWarnedCommentsList()
+    public function getCommentsWarned()
     {
-
         $db = $this->dbConnect();
-        $comments = $db->query('SELECT id, comment FROM comments WHERE warned = 1 ORDER BY comment_date DESC');
+        $commentsWarned = $db->query('SELECT id, comment FROM comments  WHERE warned = 1 ORDER BY comment_date ASC');
+        $comments = $commentsWarned->fetchAll();
 
-        $commentList  = $comments->fetch();
-        var_dump($commentList) ;
 
-        return $commentList;
+        return $comments;
+    }
+
+    public function erazComment($idComment)
+    {
+        $db = $this->dbConnect();
+        $commentToDelet = $db->prepare('DELETE * FROM comments WHERE id= :idComment ');
+        $affectedLines =$commentToDelet->execute(array(
+            'idComment' => $idComment,
+        ));
+        return $affectedLines;
     }
 }

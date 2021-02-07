@@ -80,8 +80,11 @@ try {
         elseif($_GET['action'] == 'warnComment'){
             warnComment($_GET['id']);                                           
         }
-        elseif($_GET['action'] =='updateCommentView'){
-            getWarnedComments();
+        elseif($_GET['action'] == 'warnedCommentView'){
+            getWarnedCommentVIew();                                       
+        }
+        elseif($_GET['action'] == 'deletComment'){
+            deletComment($_GET['idComment']);
         }
     }
     else {
