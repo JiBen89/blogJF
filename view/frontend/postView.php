@@ -9,7 +9,7 @@
         <?= htmlspecialchars($post['title']) ?>
         <em>le <?= $post['creation_date_fr'] ?></em>
     </h3>
-    
+
     <p>
         <?= nl2br(htmlspecialchars($post['content'])) ?>
     </p>
@@ -18,11 +18,11 @@
 <h2>Commentaires</h2>
 
 <?php
-while ($comment = $comments->fetch())
-{
+while ($comment = $comments->fetch()) {
 ?>
     <p><strong><?= htmlspecialchars($comment['idAuthor']) ?></strong> le <?= $comment['comment_date_fr'] ?>
-    <a href="index.php?action=warnComment&amp;id=<?= $comment['id'] ?>">(signaler)</a></p>
+        <a href="index.php?action=warnComment&amp;id=<?= $comment['id'] ?>">(signaler)</a>
+    </p>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 <?php
 }
@@ -30,24 +30,23 @@ while ($comment = $comments->fetch())
 <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
     <div>
         <p><?php
-        if (!empty($_SESSION['idUser'])){
-            echo ('commenté en tant que '. $_SESSION['idUser']);
-        }
-        ?></p>
+            if (!empty($_SESSION['idUser'])) {
+                echo ('commenté en tant que ' . $_SESSION['idUser']);
+            }
+            ?></p>
     </div>
     <div>
-        <?php 
-            if (!empty($_SESSION['idUser']))
-            {
-                echo '<label for="comment">Commentaire</label><br /><textarea id="comment" name="comment"></textarea>';            
-            }
+        <?php
+        if (!empty($_SESSION['idUser'])) {
+            echo '<label for="comment">Commentaire</label><br /><textarea id="comment" name="comment"></textarea>';
+        }
         ?>
     </div>
-    <div> 
-        <?php     
-            if (!empty($_SESSION['idUser'])){
-                echo '<input type="submit" />';
-            }
+    <div>
+        <?php
+        if (!empty($_SESSION['idUser'])) {
+            echo '<input type="submit" />';
+        }
         ?>
     </div>
 </form>

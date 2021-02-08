@@ -8,6 +8,7 @@
     </head> 
     <body>
         <header>
+        <a href="index.php" id="back">Retour a l'acceuil </a></br>
             <?php 
             if(empty($_SESSION['pseudo']))
             {
@@ -18,7 +19,7 @@
                 if($_SESSION['adm'] == 1){
                     echo 'vous êtes connecté entant qu\'administrateur </br>
                     Pour écrire les billets : <a id="writePost" href="index.php?action=writePostView"> Ecrire </a> </br>
-                    Pour modifier les billets : <a href="index.php?action=updatePost"> Modifier </a> </br>
+                    Pour modifier ou suprimer les billets : <a href="index.php?action=updatePost"> Modifier ou supprimer </a> </br>
                     Liste des commentaires signlés : <a href="index.php?action=warnedCommentView"> Modérer </a> </br>
                     ';
                 }

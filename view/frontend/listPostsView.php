@@ -2,7 +2,7 @@
 <?php $title = 'Mon blog'; ?>
 
 
-<h1>Mon super blog !</h1>
+<h1>Billet simple pour l'Alaska</h1>
 <p>Derniers billets du blog :</p>
 
 

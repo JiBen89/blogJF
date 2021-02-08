@@ -1,5 +1,5 @@
 <?php
-require_once("model/Manager.php"); 
+require_once("model/Manager.php");
 
 class CommentManager extends Manager
 {
@@ -28,7 +28,19 @@ class CommentManager extends Manager
 
         $affectedLines = $comments->execute(array(
             'commentId' => $CommentId,
-            ));
+        ));
+
+        return $affectedLines;
+    }
+
+    public function removeSignal($CommentId)
+    {
+        $db = $this->dbConnect();
+        $comments = $db->prepare('UPDATE comments SET warned = 0 WHERE id = :commentId ');
+
+        $affectedLines = $comments->execute(array(
+            'commentId' => $CommentId,
+        ));
         return $affectedLines;
     }
 
@@ -45,9 +57,10 @@ class CommentManager extends Manager
     public function erazComment($idComment)
     {
         $db = $this->dbConnect();
-        $commentToDelet = $db->prepare('DELETE * FROM comments WHERE id= :idComment ');
-        $affectedLines =$commentToDelet->execute(array(
-            'idComment' => $idComment,
+        $commentToDelet = $db->prepare('DELETE FROM comments WHERE id = :idComment ');
+
+        $affectedLines = $commentToDelet->execute(array(
+            'idComment' => $idComment
         ));
         return $affectedLines;
     }

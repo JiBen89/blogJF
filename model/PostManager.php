@@ -61,11 +61,10 @@ class PostManager extends Manager
     public function getPostContent($postId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
+        $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
         $req->execute(array($postId));
         
         $content = $req->fetch();
-
         return $content;
     }
 
@@ -78,5 +77,15 @@ class PostManager extends Manager
             'newContent' => $newContent,
             'newTitle' => $newTitle,
         ));
+    }
+
+    public function deletPost($idPost)
+    {
+        $db = $this->dbConnect();
+        $postToDelet = $db->prepare('DELETE FROM posts WHERE id = :idPost ');
+        $affectedLines = $postToDelet->execute(array(
+            'idPost' => $idPost
+        ));
+        return $affectedLines;
     }
 }

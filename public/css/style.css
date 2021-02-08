@@ -28,5 +28,11 @@ a
 }
 #writePost
 {
-background-color: aqua;
+    background-color: aqua;
+}
+#back
+{
+    position: absolute;
+    right: 10px;
+    top: 2px;
 }

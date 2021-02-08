@@ -41,11 +41,12 @@ function deletComment($idComment)
 {
     $commentManager = new CommentManager();
     $affectedLines = $commentManager->erazComment($idComment);
+
     if ($affectedLines === false) {
         throw new Exception('Impossible de supprimer le commentaire !');
     }
     else {
-        header('index.php?action=warnedCommentView');
+        header("Location: index.php?action=warnedCommentView");
     }
 }
 
@@ -57,7 +58,24 @@ function warnComment($CommentId)
     if ($affectedLines === false) {
         throw new Exception('Impossible de signaler le commentaire '. $CommentId  );
     }
+    else{
+        header("Location: index.php");
+    }
 }
+
+function removeWarned($CommentId)
+{
+    $commentManager = new CommentManager();
+    $affectedLines = $commentManager->removeSignal($CommentId);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible d\'enlever le signalement du commentaire '. $CommentId  );
+    }
+    else {
+        header("Location: index.php?action=warnedCommentView");
+    }
+}
+
 function getWarnedCommentView()
 {
     $commentManager = new CommentManager();
@@ -149,6 +167,13 @@ function updatePost()
 
     require('view/frontend/updatePostView.php');
 }
+function deletContent($postId)
+{
+    $postManager = new PostManager();
+    $deletPost = $postManager->deletPost($postId);
+
+    header('Location: index.php?action=updatePost');
+}
 
 function postContent()
 {
@@ -169,4 +194,6 @@ function updateContent($newContent, $newTitle, $postId)
         header('Location: index.php?');
     }
 }
+
+
 
