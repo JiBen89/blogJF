@@ -1,5 +1,6 @@
 <?php
-require('controller/frontend.php');
+require('controller/frontend.php'); 
+$title = "billet simple pour l'ALaska !";
 session_start();
 try {
     if (isset($_GET['action'])) {
@@ -27,7 +28,7 @@ try {
             if (!empty($_POST['pseudo']) && !empty($_POST['pass']) && !empty($_POST['mail'])) {
                 if ($_POST['pass'] === $_POST['passCheck']) {
                     addUser($_POST['pseudo'], $_POST['pass'], $_POST['mail']);
-                    listPosts();
+                    header('location: index.php');
                 } else {
                     echo 'les deux mots de passe ne sont pas indentiques <a href="index.php?action=inscriptionView"> retour ici </a>';
                 }
@@ -67,6 +68,10 @@ try {
             deletComment($_GET['idComment']);
         } elseif ($_GET['action'] == 'removeWarned') {
             removeWarned($_GET['idComment']);
+        } elseif ($_GET['action'] == 'bioAuthor') {
+            getBioView();
+        } elseif ($_GET['action'] == 'allPosts') {
+            allPosts();
         }
     } else {
         listPosts();
@@ -74,3 +79,4 @@ try {
 } catch (Exception $e) {
     echo 'Erreur : ' . $e->getMessage();
 }
+

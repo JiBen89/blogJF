@@ -1,4 +1,8 @@
-<?php require('template.php'); ?>
+<?php 
+$title = "création de billet";
+require('template.php');
+?>
+<div class="container">
 <form action="index.php?action=writeNewPost" method="post">
 
     <label for="newTitle">Titre :</label>
@@ -6,6 +10,8 @@
     <label for="newPost">Contenu</label>
     <textarea id="newPost" name="newPost">
     </textarea>
+    
+    
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -26,3 +32,4 @@
     </div>
 
 </form>
+</div>

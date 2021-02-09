@@ -1,4 +1,8 @@
-<?php require('template.php'); ?>
+<?php
+require('template.php'); 
+$title = "liste des billets a modifier";
+?>
+<div class="container">
 <h2>Quel billet voulez vous modifier ?</h2>
 <p>
     <?php
@@ -13,3 +17,4 @@
 <?php
     }
     $posts->closeCursor();
+    echo "</div>";

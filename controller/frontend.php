@@ -194,6 +194,15 @@ function updateContent($newContent, $newTitle, $postId)
         header('Location: index.php?');
     }
 }
+function getBioView(){
+    require("view/frontend/bioAuthoView.php");
+}
+function allPosts(){
+    $postManager = new PostManager();
+    $posts = $postManager->getAllPosts();
+
+    require("view/frontend/allPostsView.php");
+}
 
 
 

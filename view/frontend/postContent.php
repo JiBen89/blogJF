@@ -1,4 +1,8 @@
-<?php require('template.php'); ?>
+<?php 
+$title = "modification de billet";
+require('template.php');
+?>
+<div class="container">
 <script>
     tinymce.init({
         selector: 'textarea',
@@ -29,3 +33,4 @@
     </p>
 
 </form>
+</div>
