@@ -15,6 +15,7 @@ try {
         } elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_SESSION['idUser']) && !empty($_POST['comment'])) {
+
                     addComment($_GET['id'], $_SESSION['idUser'], $_POST['comment']);
                 } else {
                     throw new Exception('Tous les champs ne sont pas remplis triple buse!');
@@ -45,7 +46,7 @@ try {
             }
         } elseif ($_GET['action'] == 'disconect') {
             session_destroy();
-            listPosts();
+            header('location: index.php');
         } elseif ($_GET['action'] == 'writePostView') {
             writePost();
         } elseif ($_GET['action'] == 'writeNewPost') {

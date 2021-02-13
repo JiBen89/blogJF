@@ -19,7 +19,7 @@
     <?php
     while ($comment = $comments->fetch()) {
     ?>
-        <p><strong><?= htmlspecialchars($comment['idAuthor']) ?></strong> le <?= $comment['comment_date_fr'] ?>
+        <p><strong><?= htmlspecialchars($comment['pseudo']) ?></strong> le <?= $comment['comment_date_fr'] ?>
             <a href="index.php?action=warnComment&amp;id=<?= $comment['id'] ?>">(signaler)</a>
         </p>
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
@@ -30,7 +30,7 @@
         <div>
             <p><?php
                 if (!empty($_SESSION['idUser'])) {
-                    echo ('commenté en tant que ' . $_SESSION['idUser']);
+                    echo ('commenter en tant que ' . $_SESSION['pseudo']);
                 }
                 ?></p>
         </div>

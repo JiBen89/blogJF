@@ -8,7 +8,7 @@ $title = "liste des billets a modifier";
     <?php
     while ($postsList = $posts->fetch()) {
     ?>
-        <?= $postsList['id'] ?>
+        le billet :
         <?= $postsList['title'] ?>
         <a href="index.php?action=getContent&amp;id=<?= $postsList['id'] ?>">Modifier</a>
         <a href="index.php?action=deletContent&amp;id=<?= $postsList['id'] ?>">Supprimer</a>
